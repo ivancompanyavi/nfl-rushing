@@ -13,8 +13,10 @@ def build_sorters(sort_by: str) -> list[Sorter]:
     sorters = []
     for s in sort_by.split(','):
         ascending = s[0] != '-'
-        field = s[:1] if not ascending else s
+        field = s[1:] if not ascending else s
         sorters.append(Sorter(field, ascending))
+
+    return sorters
 
 
 def build_paginator(page: str, offset: str) -> Paginator:
@@ -39,8 +41,6 @@ def init(bp: Blueprint):
         filter = build_filter(filter_by)
         paginator = build_paginator(page, offset)
         sorter = build_sorters(sort_by)
-
-        print('hola')
 
         data = models.get_player_rushings(filter, paginator, sorter)
 
