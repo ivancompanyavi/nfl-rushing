@@ -1,5 +1,12 @@
-FROM nginx
+FROM node:16
 
-COPY . /usr/share/nginx/html
+RUN mkdir -p /usr/share/app
 
-EXPOSE 80
+WORKDIR /usr/share/app
+
+COPY . /usr/share/app
+RUN npm install
+
+EXPOSE 8000
+
+CMD ["npm run serve"]

@@ -1,0 +1,11 @@
+.light {
+  --color-primary: #ffaaff;
+  --color-secondary: #0000ff;
+  --color-font-normal: #000000;
+}
+
+.dark {
+  --color-primary: #000000;
+  --color-secondary: #1e1f21;
+  --color-font-normal: #ffffff;
+}
