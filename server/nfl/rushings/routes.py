@@ -1,5 +1,8 @@
-from .entities import Filter, Paginator, Sorter
 from flask import Blueprint, request, Response, abort, jsonify
+import csv
+from io import StringIO
+from dataclasses import asdict
+from .entities import Filter, Paginator, PlayerRushing, Sorter
 from . import models
 
 
@@ -46,3 +49,22 @@ def init(bp: Blueprint):
             filter, paginator, sorter)
 
         return jsonify({'data': data, 'total': total_results})
+
+    @bp.route('/download', methods=['GET'])
+    def get_csv_data():
+        filter_by = request.args.get('filter_by', '')
+        sort_by = request.args.get('sort_by', '')
+
+        filter = build_filter(filter_by)
+        sorter = build_sorters(sort_by)
+        si = StringIO()
+        cw = csv.writer(si)
+
+        cw.writerow(asdict(PlayerRushing()).keys())
+        data, _ = models.get_player_rushings(filter, None, sorter)
+        cw.writerows([asdict(p).values() for p in data])
+        return Response(
+            si.getvalue(),
+            mimetype="text/csv",
+            headers={"Content-disposition":
+                     "attachment; filename=rushings.csv"})

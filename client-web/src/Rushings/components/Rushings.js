@@ -8,7 +8,7 @@ import { operations } from '../duck'
 
 import styles from './Rushings.modules.css'
 
-const { getRushingData } = operations
+const { getRushingData, downloadData } = operations
 
 export default () => {
   const [data, setData] = useState({ data: [] })
@@ -53,6 +53,7 @@ export default () => {
     <section className={styles.content}>
       <section className={styles.actionBar}>
         <Search value={filter} onChange={(v) => setFilter(v)} onSearch={filterFn} />
+        <button onClick={() => downloadData(sortings, filter)}>Download data</button>
         <Offsetter value={offset} onOffset={offsetFn} />
       </section>
       <Table data={data.data} onSort={sortFn} sortings={sortings} />
