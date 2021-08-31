@@ -1,3 +1,3 @@
 #!/bin/sh
 
-gunicorn -b 0.0.0.0:80 manage:app --reload
+gunicorn -b 0.0.0.0:8000 manage:app --reload

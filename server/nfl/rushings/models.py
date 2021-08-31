@@ -5,6 +5,6 @@ from .db import get_db
 def get_player_rushings(filter: Filter, paginator: Paginator, sorter: Sorter) -> list[PlayerRushing]:
     db = get_db(filter, paginator, sorter)
 
-    player_data = db.query()
+    player_data, total_results = db.query()
 
-    return player_data
+    return (player_data, total_results)

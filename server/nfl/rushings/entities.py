@@ -1,4 +1,3 @@
-from collections import namedtuple
 from dataclasses import dataclass
 
 
@@ -21,21 +20,21 @@ class Filter:
 
 @dataclass
 class PlayerRushing:
-    name: str
-    team: str
-    position: str
-    avg_attempts_per_game: int
-    attempts: int
-    yards: int
-    avg_yards_per_attempt: int
-    avg_yards_per_game: int
-    touchdowns: int
-    longest_rush: str
-    first_down: int
-    first_down_pct: int
-    twenty_plus_yards: int
-    forty_plus_yards: int
-    fumbles: int
+    name: str = ''
+    team: str = ''
+    position: str = ''
+    avg_attempts_per_game: int = 0
+    attempts: int = 0
+    yards: int = 0
+    avg_yards_per_attempt: int = 0
+    avg_yards_per_game: int = 0
+    touchdowns: int = 0
+    longest_rush: str = ''
+    first_down: int = 0
+    first_down_pct: int = 0
+    twenty_plus_yards: int = 0
+    forty_plus_yards: int = 0
+    fumbles: int = 0
 
     def build_from_obj(self, obj):
         self.name = obj['Player']
@@ -47,7 +46,7 @@ class PlayerRushing:
         self.avg_yards_per_attempt = obj['Avg']
         self.avg_attempts_per_game = obj['Yds/G']
         self.touchdowns = obj['TD']
-        self.longest = obj['Lng']
+        self.longest_rush = obj['Lng']
         self.first_down = obj['1st']
         self.first_down_pct = obj['1st%']
         self.twenty_plus_yards = obj['20+']

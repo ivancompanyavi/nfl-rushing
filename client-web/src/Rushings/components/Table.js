@@ -1,17 +1,22 @@
 import React, { useState } from 'react'
 
-import './Table.modules.css'
+import styles from './Table.modules.css'
 
-export default ({ data = [], onSort, sortings }) => {
+export default ({ data = [], onSort, sortings = [] }) => {
   if (!data || data.length === 0) {
     return null
   }
 
   const sortItem = (field) => {
-    const sortIndex = sortings.findIndex((s) => s === field)
+    const sortIndex = sortings.findIndex((s) => {
+      if (s[0] === '-') {
+        return s.substr(1) === field
+      }
+      return s === field
+    })
     if (sortIndex !== -1) {
       if (sortings[sortIndex][0] === '-') {
-        sortings[sortIndex] = field
+        sortings.splice(sortIndex, 1)
       } else {
         sortings[sortIndex] = `-${field}`
       }
@@ -33,22 +38,22 @@ export default ({ data = [], onSort, sortings }) => {
   const headers = Object.keys(data[0])
 
   return (
-    <table>
+    <table className={styles.table}>
       <thead>
         <tr>
-          {headers.map((h) => (
-            <th onClick={() => sortItem(h)}>
+          {headers.map((h, i) => (
+            <th key={`table_header_${i}`} onClick={() => sortItem(h)}>
               {getArrow(h)}
-              {h}
+              {h.replace(/_/g, ' ')}
             </th>
           ))}
         </tr>
       </thead>
       <tbody>
-        {data.map((d) => (
-          <tr>
-            {Object.values(d).map((value) => (
-              <td>{value}</td>
+        {data.map((d, i) => (
+          <tr key={`table_row_${i}`}>
+            {Object.values(d).map((value, j) => (
+              <td key={`table_row_${i}_${j}`}>{value}</td>
             ))}
           </tr>
         ))}

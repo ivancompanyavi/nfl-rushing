@@ -1,0 +1,21 @@
+.table td {
+  padding: 1rem;
+}
+
+.table th {
+  border-bottom: 1px solid white;
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+.table tbody:before {
+  content: '';
+  line-height: 1rem;
+  background-color: white;
+}
+
+.table {
+  border-spacing: 1rem;
+  color: inherit;
+  margin-bottom: 1rem;
+}

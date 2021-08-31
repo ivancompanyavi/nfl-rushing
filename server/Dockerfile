@@ -15,8 +15,4 @@ COPY ./boot.sh /usr/src/app/boot.sh
 
 COPY . /usr/src/app
 
-EXPOSE 80
-
-RUN chmod +x /usr/src/app/boot.sh
-# run server
-CMD ["/usr/src/app/boot.sh"]
+EXPOSE 8000

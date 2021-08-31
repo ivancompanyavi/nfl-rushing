@@ -31,7 +31,7 @@ def build_paginator(page: str, offset: str) -> Paginator:
 
 
 def init(bp: Blueprint):
-    @bp.route('/', methods=['GET'])
+    @bp.route('/', methods=['GET', 'HEAD'])
     def get_index():
         filter_by = request.args.get('filter_by', '')
         sort_by = request.args.get('sort_by', '')
@@ -42,6 +42,7 @@ def init(bp: Blueprint):
         paginator = build_paginator(page, offset)
         sorter = build_sorters(sort_by)
 
-        data = models.get_player_rushings(filter, paginator, sorter)
+        data, total_results = models.get_player_rushings(
+            filter, paginator, sorter)
 
-        return jsonify(data)
+        return jsonify({'data': data, 'total': total_results})

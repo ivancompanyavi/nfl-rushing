@@ -1,7 +1,9 @@
 .content {
   padding: 4rem;
   grid-area: content;
+}
+
+.actionBar {
   display: flex;
-  justify-content: center;
-  flex-direction: column;
+  margin-bottom: 1rem;
 }

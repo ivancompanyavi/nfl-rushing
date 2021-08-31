@@ -1,3 +1,3 @@
-import Rushings from './Rushings'
+import Rushings from './components'
 
 export default Rushings

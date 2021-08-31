@@ -1,12 +1,21 @@
 FROM node:16
 
-RUN mkdir -p /usr/share/app
+RUN mkdir -p /usr/src/app
 
-WORKDIR /usr/share/app
+WORKDIR /usr/src/app
 
-COPY . /usr/share/app
+COPY package*.json ./
+
+RUN npm install -g http-server
+
 RUN npm install
 
-EXPOSE 8000
+COPY . .
 
-CMD ["npm run serve"]
+RUN node ./node_modules/esbuild/install.js
+
+RUN npm run build
+
+VOLUME [ "/usrc/src/app/public" ]
+
+EXPOSE 5000

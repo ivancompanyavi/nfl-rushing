@@ -1,0 +1,23 @@
+version: '3.9'
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    volumes:
+      - ./server:/usr/src/app
+    ports:
+      - 8000:8000
+    command: gunicorn -b 0.0.0.0:8000 manage:app --reload
+
+  client:
+    build:
+      context: ./client-web
+      dockerfile: Dockerfile
+    volumes:
+      - ./client-web/public:/usr/src/app/public
+    ports:
+      - 5000:5000
+    depends_on:
+      - server
+    command: npm run deploy

@@ -2,3 +2,4 @@ __pycache__
 node_modules
 .devcontainer
 client-web/public/out.js*
+.env
